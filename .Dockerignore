@@ -1,0 +1,7 @@
+.github/
+
+terraform/
+
+.gitignore
+
+pyrightconfig.json

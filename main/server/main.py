@@ -1,30 +1,24 @@
-from flask import Flask, render_template_string
-import plotly.io as pio
+import os
+from api.handler.settings import handler_config
+from flask import Flask
 
-app = Flask(__name__)
 
+def main():
+    route = os.getenv("ROUTE", "")
 
-@app.route("/")
-def index():
+    port = int(os.getenv("PORT", "8080"))
 
-    graph_html = pio.to_html(fig, full_html=False)
+    app = Flask(__name__)
 
-    return render_template_string(
-        """
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Interactive Plotly Chart</title>
-    </head>
-    <body>
-        {{ graph_html|safe }}
-    </body>
-    </html>""",
-        graph_html=graph_html,
-    )
+    if route not in handler_config:
+        raise Exception(f"Unknown route: {route}")
+
+    method, handler = handler_config[route]
+
+    app.route("/", methods=[method])(handler)
+
+    app.run(host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    main()
