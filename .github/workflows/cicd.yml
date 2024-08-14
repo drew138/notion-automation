@@ -1,0 +1,82 @@
+---
+name: build image
+
+"on":
+  push:
+    branches: [main]
+
+env:
+  IMAGE_NAME: notion-automations
+  DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Login to DockerHub
+        run: echo "${{ env.DOCKERHUB_PASSWORD }}" | docker login -u "${{ env.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t "${{ env.IMAGE_NAME }}" .
+
+      - name: Tag Docker Image
+        run: docker tag "${{ env.IMAGE_NAME }}:latest" "${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
+
+      - name: Push Image to DockerHub
+        run: docker push "${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
+
+  deploy:
+    runs-on: ubuntu-20.04
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform
+
+    env:
+      JIRA_BASE_URL: ${{ secrets.TF_VAR_JIRA_BASE_URL }}
+      JIRA_ACCESS_TOKEN: ${{ secrets.TF_VAR_JIRA_ACCESS_TOKEN }}
+      JIRA_BOARD_ID: ${{ secrets.TF_VAR_JIRA_BOARD_ID }}
+
+      JIRA_PROJECT: ${{ secrets.TF_VAR_JIRA_PROJECT }}
+      JIRA_STORY_POINTS_CUSTOM_FIELD: ${{ secrets.TF_VAR_JIRA_STORY_POINTS_CUSTOM_FIELD }}
+      JIRA_REVIEWER_CUSTOM_FIELD: ${{ secrets.TF_VAR_JIRA_REVIEWER_CUSTOM_FIELD }}
+
+      NOTION_TOKEN: ${{ secrets.TF_VAR_NOTION_TOKEN }}
+
+      NOTION_SUBSCRIPTIONS_DATABASE_ID: ${{ secrets.TF_VAR_NOTION_SUBSCRIPTIONS_DATABASE_ID }}
+      NOTION_TRANSACTIONS_DATABASE_ID: ${{ secrets.TF_VAR_NOTION_TRANSACTIONS_DATABASE_ID }}
+      NOTION_ASSIGNED_ISSUES_DATABASE_ID: ${{ secrets.TF_VAR_NOTION_ASSIGNED_ISSUES_DATABASE_ID }}
+      NOTION_REVIEWER_ISSUES_DATABASE_ID: ${{ secrets.TF_VAR_NOTION_REVIEWER_ISSUES_DATABASE_ID }}
+
+      GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup terraform variables
+        id: vars
+        run: |-
+          cat > pipeline.auto.tfvars <<EOF
+          project_id="$GCP_PROJECT_ID"
+          docker_image="${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
+          EOF
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false

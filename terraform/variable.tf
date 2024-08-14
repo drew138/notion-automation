@@ -4,12 +4,6 @@ variable "location" {
   description = "Google cloud location"
 }
 
-variable "repository_id" {
-  type        = string
-  default     = "notion_automations"
-  description = "Google Artifact Registry repository id"
-}
-
 variable "timezone" {
   type        = string
   default     = "America/Bogota"
@@ -19,4 +13,9 @@ variable "timezone" {
 variable "project_id" {
   type        = string
   description = "Google Cloud project id"
+}
+
+variable "docker_image" {
+  type        = string
+  description = "Docker image to deploy in Cloud Run"
 }
