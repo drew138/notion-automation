@@ -20,6 +20,7 @@ resource "google_cloud_scheduler_job" "append_transactions_database_trigger" {
   }
 
   depends_on = [
-    google_project_service.scheduler_api
+    google_project_service.scheduler_api,
+    google_service_account.scheduler-sa,
   ]
 }

@@ -16,11 +16,11 @@ resource "google_cloud_run_v2_service" "draw_transactions_distribution_chart_job
         value = "draw_transactions_distribution_chart"
       }
       env {
-        name = "NOTION_TOKEN"
+        name  = "NOTION_TOKEN"
         value = env("NOTION_TOKEN")
       }
       env {
-        name = "NOTION_TRANSACTIONS_DATABASE_ID"
+        name  = "NOTION_TRANSACTIONS_DATABASE_ID"
         value = env("NOTION_TRANSACTIONS_DATABASE_ID")
       }
     }
@@ -31,7 +31,7 @@ resource "google_cloud_run_v2_service" "draw_transactions_distribution_chart_job
   }
 
   depends_on = [
-    google_project_service.run_api
+    google_project_service.run_api,
   ]
 }
 
@@ -40,4 +40,8 @@ resource "google_cloud_run_service_iam_member" "draw_transactions_distribution_c
   service  = google_cloud_run_v2_service.draw_transactions_distribution_chart_job.name
   role     = "roles/run.invoker"
   member   = "allUsers"
+
+  depends_on = [
+    google_project_service.iam_api,
+  ]
 }

@@ -4,6 +4,6 @@ resource "google_service_account" "scheduler-sa" {
   display_name = "scheduler-sa"
 
   depends_on = [
-    google_project_service.iam_api
+    google_project_service.iam_api,
   ]
 }

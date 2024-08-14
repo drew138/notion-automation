@@ -16,15 +16,15 @@ resource "google_cloud_run_v2_service" "append_transactions_database_job" {
         value = "append_transactions_database"
       }
       env {
-        name = "NOTION_TOKEN"
+        name  = "NOTION_TOKEN"
         value = env("NOTION_TOKEN")
       }
       env {
-        name = "NOTION_SUBSCRIPTIONS_DATABASE_ID"
+        name  = "NOTION_SUBSCRIPTIONS_DATABASE_ID"
         value = env("NOTION_SUBSCRIPTIONS_DATABASE_ID")
       }
       env {
-        name = "NOTION_TRANSACTIONS_DATABASE_ID"
+        name  = "NOTION_TRANSACTIONS_DATABASE_ID"
         value = env("NOTION_TRANSACTIONS_DATABASE_ID")
       }
     }
@@ -35,7 +35,7 @@ resource "google_cloud_run_v2_service" "append_transactions_database_job" {
   }
 
   depends_on = [
-    google_project_service.run_api
+    google_project_service.run_api,
   ]
 }
 
@@ -44,4 +44,8 @@ resource "google_cloud_run_service_iam_member" "append_transactions_database_job
   service  = google_cloud_run_v2_service.append_transactions_database_job.name
   role     = "roles/run.invoker"
   member   = "serviceAccount:${google_service_account.scheduler-sa.email}"
+
+  depends_on = [
+    google_project_service.iam_api,
+  ]
 }
