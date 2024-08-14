@@ -31,6 +31,7 @@ jobs:
         run: docker push "${{ env.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest"
 
   deploy:
+    needs: build
     runs-on: ubuntu-20.04
 
     defaults:
