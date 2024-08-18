@@ -31,6 +31,3 @@ class DrawExpensesDistributionChartTask(Task):
 
     def get_fig(self) -> go.Figure:
         return self.pie.get_fig()
-
-
-DrawExpensesDistributionChartTask().run()
