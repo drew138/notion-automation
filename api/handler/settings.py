@@ -1,11 +1,11 @@
 from typing import Dict, Tuple, Callable
-from handler.work import (
+from api.handler.work import (
     draw_burndown_chart,
     draw_completion_chart,
     update_assigned_issues_database,
     update_reviewever_issues_database,
 )
-from handler.finances import (
+from api.handler.finances import (
     draw_expenses_distribution_chart,
     draw_transactions_distribution_chart,
     append_transactions_database,

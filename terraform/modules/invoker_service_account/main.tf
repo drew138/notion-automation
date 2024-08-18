@@ -3,7 +3,7 @@ resource "google_service_account" "scheduler-sa" {
   description  = "Cloud Scheduler service account"
   display_name = "scheduler-sa"
 
-  depends_on = [
-    google_project_service.iam_api,
-  ]
+  lifecycle {
+    prevent_destroy = true
+  }
 }

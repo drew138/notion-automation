@@ -65,7 +65,18 @@ jobs:
         run: |-
           cat > pipeline.auto.tfvars <<EOF
           project_id="$GCP_PROJECT_ID"
-          docker_image="${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
+          docker_image="${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
+          notion_token="$NOTION_TOKEN"
+          notion_subscriptions_database_id="$NOTION_SUBSCRIPTIONS_DATABASE_ID"
+          notion_transactions_database_id="$NOTION_TRANSACTIONS_DATABASE_ID"
+          notion_assigned_issues_database_id="$NOTION_ASSIGNED_ISSUES_DATABASE_ID"
+          notion_reviewer_issues_database_id="$NOTION_REVIEWER_ISSUES_DATABASE_ID"
+          jira_base_url="$JIRA_BASE_URL"
+          jira_access_token="$JIRA_ACCESS_TOKEN"
+          jira_board_id="$JIRA_BOARD_ID"
+          jira_project="$JIRA_PROJECT"
+          jira_story_points_custom_field="$JIRA_STORY_POINTS_CUSTOM_FIELD"
+          jira_reviewer_custom_field="$JIRA_REVIEWER_CUSTOM_FIELD"
           EOF
 
       - name: Terraform Init

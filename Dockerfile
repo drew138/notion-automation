@@ -8,4 +8,6 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+ENV PYTHONPATH "/app"
+
 CMD [ "python3", "main/server/main.py"]
