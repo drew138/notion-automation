@@ -241,3 +241,4 @@ module "draw_transactions_distributions_chart" {
     },
   ]
 }
+
