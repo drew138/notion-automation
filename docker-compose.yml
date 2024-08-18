@@ -5,9 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000" # Exposing port 8000, adjust if your app uses a different port
+      - "8080:8080"
+    env_file:
+      - .env
     environment:
-      - ENV_VAR=value # Example environment variable
+      - ROUTE=update_reviewever_issues_database
     volumes:
-      - .:/app # Mount the current directory to the container
+      - .:/app
     command: ["python3", "main/server/main.py"]

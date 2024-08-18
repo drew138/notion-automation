@@ -21,6 +21,8 @@ class DrawTransactionsDistributionChartTask(Task):
         income = 0
         other = 0
         for transaction in transactions:
+            if not transaction["amount"]:
+                continue
             if transaction["type"] == "Income":
                 income += transaction["amount"]
             elif transaction["type"]:
@@ -31,9 +33,9 @@ class DrawTransactionsDistributionChartTask(Task):
 
         self.pie.add_chart(list(counts.keys()), list(counts.values()))
 
+        date = datetime.now().strftime("%B %Y")
         self.pie.update_fig_layout(
-            datetime.now().strftime("%B %Y"),
-            "Transaction Distribution",
+            f"Transactions Distribution {date}",
         )
 
     def get_fig(self) -> go.Figure:

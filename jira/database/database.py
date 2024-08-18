@@ -7,9 +7,18 @@ import threading
 
 class Database:
     def __init__(self) -> None:
-        self.jira_project = os.getenv("JIRA_PROJECT", "")
-        self.story_points_custom_field = os.getenv("JIRA_STORY_POINTS_CUSTOM_FIELD", "")
-        self.reviewer_custom_field = os.getenv("JIRA_REVIEWER_CUSTOM_FIELD", "")
+        self.jira_project = os.getenv(
+            "JIRA_PROJECT",
+            "",
+        )
+        self.story_points_custom_field = os.getenv(
+            "JIRA_STORY_POINTS_CUSTOM_FIELD",
+            "",
+        )
+        self.reviewer_custom_field = os.getenv(
+            "JIRA_REVIEWER_CUSTOM_FIELD",
+            "",
+        )
         self.date_format = "%Y-%m-%dT%H:%M:%S.%f%z"
         self.client = Client()
 

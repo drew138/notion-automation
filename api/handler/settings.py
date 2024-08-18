@@ -12,19 +12,19 @@ from api.handler.finances import (
 )
 
 handler_config: Dict[str, Tuple[str, Callable]] = {
-    "draw_expenses_distribution_chart": (
+    "draw_expenses_distribution_chart": (  # done
         "GET",
         draw_expenses_distribution_chart.index,
     ),
-    "draw_transactions_distribution_chart": (
+    "draw_transactions_distribution_chart": (  # done
         "GET",
         draw_transactions_distribution_chart.index,
     ),
-    "draw_burndown_chart": (
+    "draw_burndown_chart": (  # done
         "GET",
         draw_burndown_chart.index,
     ),
-    "draw_completion_chart": (
+    "draw_completion_chart": (  # done
         "GET",
         draw_completion_chart.index,
     ),
@@ -32,11 +32,11 @@ handler_config: Dict[str, Tuple[str, Callable]] = {
         "POST",
         append_transactions_database.index,
     ),
-    "update_assigned_issues_database": (
+    "update_assigned_issues_database": (  # done
         "POST",
         update_assigned_issues_database.index,
     ),
-    "update_reviewever_issues_database": (
+    "update_reviewever_issues_database": (  # done
         "POST",
         update_reviewever_issues_database.index,
     ),

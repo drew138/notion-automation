@@ -19,14 +19,16 @@ class DrawExpensesDistributionChartTask(Task):
         transactions = self.transaction_db.read()
 
         for transaction in transactions:
-            if transaction["type"] == "Income":
+            if not transaction["amount"]:
+                continue
+            if transaction["type"] == "Expense":
                 counts[transaction["type"]] += transaction["amount"]
 
         self.pie.add_chart(list(counts.keys()), list(counts.values()))
 
+        date = datetime.now().strftime("%B %Y")
         self.pie.update_fig_layout(
-            datetime.now().strftime("%B %Y"),
-            "Expenses Distribution",
+            f"Expenses Distribution {date}",
         )
 
     def get_fig(self) -> go.Figure:

@@ -22,7 +22,7 @@ class DrawCompletionChartTask(Task):
 
         self.pie.add_chart(list(counts.keys()), list(counts.values()))
 
-        self.pie.update_fig_layout(sprint["name"], "Issue Distribution")
+        self.pie.update_fig_layout("Issue Completion Distribution")
 
         self.get_fig().show()
 
