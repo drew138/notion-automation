@@ -42,6 +42,3 @@ class UpdateAssignedIssuesDatabaseTask(Task):
                 )
             else:
                 self.notion_assigned_issues_db.write(*args)
-
-
-UpdateAssignedIssuesDatabaseTask().run()

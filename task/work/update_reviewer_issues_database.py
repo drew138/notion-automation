@@ -41,6 +41,3 @@ class UpdateReviewerIssuesDatabaseTask(Task):
                 )
             else:
                 self.notion_reviewer_issues_db.write(*args)
-
-
-UpdateReviewerIssuesDatabaseTask().run()

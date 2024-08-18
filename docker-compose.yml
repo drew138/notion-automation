@@ -1,0 +1,13 @@
+---
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Exposing port 8000, adjust if your app uses a different port
+    environment:
+      - ENV_VAR=value # Example environment variable
+    volumes:
+      - .:/app # Mount the current directory to the container
+    command: ["python3", "main/server/main.py"]

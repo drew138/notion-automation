@@ -57,6 +57,3 @@ class DrawBurndownChartTask(Task):
 
     def get_fig(self) -> go.Figure:
         return self.burndown.get_fig()
-
-
-DrawBurndownChartTask().run()
