@@ -52,6 +52,7 @@ jobs:
 
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
       GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      TERRAFORM_BACKEND_GCS_BUCKET_NAME: ${{ secrets.TERRAFORM_BACKEND_GCS_BUCKET_NAME }}
 
     steps:
       - name: Checkout Codebase
@@ -77,6 +78,7 @@ jobs:
           jira_project="$JIRA_PROJECT"
           jira_story_points_custom_field="$JIRA_STORY_POINTS_CUSTOM_FIELD"
           jira_reviewer_custom_field="$JIRA_REVIEWER_CUSTOM_FIELD"
+          terraform_backend_gcs_bucket_name="$TERRAFORM_BACKEND_GCS_BUCKET_NAME"
           EOF
 
       - name: Terraform Init

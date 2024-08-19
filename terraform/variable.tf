@@ -14,6 +14,11 @@ variable "docker_image" {
   description = "Docker image to deploy in cloud run"
 }
 
+variable "terraform_backend_gcs_bucket_name" {
+  type        = string
+  description = "Terraform backend bucket name"
+}
+
 variable "notion_token" {
   type        = string
   description = "Notion token"
