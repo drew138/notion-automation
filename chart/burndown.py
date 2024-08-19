@@ -45,19 +45,27 @@ class BurndownChart:
                     weight="bold",
                 ),
             ),
-            # title=title,
             xaxis_title="Date",
             yaxis_title="Story Points",
-            yaxis=dict(dtick=1),
+            yaxis=dict(
+                dtick=1,
+                color="white",
+            ),
             xaxis=dict(
                 type="date",
                 tickmode="linear",
                 dtick="D1",
                 tickformat="%Y-%m-%d",
                 tickangle=-45,
+                color="white",
             ),
             legend=dict(
-                orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5
+                orientation="h",
+                yanchor="top",
+                y=-0.5,
+                xanchor="center",
+                x=0.5,
+                font=dict(color="white"),
             ),
         )
 
