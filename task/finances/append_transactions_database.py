@@ -23,6 +23,6 @@ class AppendTransactionsDatabase(Task):
                     name=subscription["name"],
                     amount=subscription["amount"],
                     date=current_date.strftime("%Y-%m-%d"),
-                    row_type="Subscription",
+                    row_type="Expense",
                     subscription_id=subscription["id"],
                 )

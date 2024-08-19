@@ -22,7 +22,7 @@ class DrawExpensesDistributionChartTask(Task):
             if not transaction["amount"]:
                 continue
             if transaction["type"] == "Expense":
-                counts[transaction["type"]] += transaction["amount"]
+                counts[transaction["name"]] += transaction["amount"]
 
         self.pie.add_chart(list(counts.keys()), list(counts.values()))
 
