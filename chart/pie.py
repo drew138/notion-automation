@@ -41,6 +41,9 @@ class PieChart:
                     weight="bold",
                 ),
             ),
+            legend=dict(
+                font=dict(color="white"),
+            ),
         )
 
     def get_fig(self) -> go.Figure:
