@@ -25,6 +25,12 @@ jobs:
       - name: Push Image to DockerHub
         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
 
+      - name: Get Docker Image SHA256 Digest
+        id: image_digest
+        run: |
+          DIGEST=$(docker inspect --format='{{index (split (index .RepoDigests 0) "@") 1}}' "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest")
+          echo $DIGEST
+
   deploy:
     needs: build
     runs-on: ubuntu-20.04
