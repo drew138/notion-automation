@@ -22,14 +22,14 @@ jobs:
       - name: Tag Docker Image
         run: docker tag "${{ secrets.IMAGE_NAME }}" "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
 
+      - name: Tag Docker Image with Commit SHA
+        run: docker tag "${{ secrets.IMAGE_NAME }}" "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
+
       - name: Push Image to DockerHub
         run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
 
-      - name: Get Docker Image SHA256 Digest
-        id: image_digest
-        run: |
-          DIGEST=$(docker inspect --format='{{index (split (index .RepoDigests 0) "@") 1}}' "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest")
-          echo $DIGEST
+      - name: Push Image with Commit SHA Tag
+        run: docker push "${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
 
   deploy:
     needs: build
@@ -71,7 +71,7 @@ jobs:
         run: |-
           cat > pipeline.auto.tfvars <<EOF
           project_id="$GCP_PROJECT_ID"
-          docker_image="${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest"
+          docker_image="${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }}"
           notion_token="$NOTION_TOKEN"
           notion_subscriptions_database_id="$NOTION_SUBSCRIPTIONS_DATABASE_ID"
           notion_transactions_database_id="$NOTION_TRANSACTIONS_DATABASE_ID"
