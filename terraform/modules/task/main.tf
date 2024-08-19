@@ -34,6 +34,11 @@ resource "google_cloud_run_v2_service" "job" {
       }
     }
   }
+
+  traffic {
+    percent  = 100
+    revision = format("%s-job-%s", var.service_name, random_id.id.hex)
+  }
 }
 
 resource "google_cloud_run_service_iam_member" "job_iam_member" {
