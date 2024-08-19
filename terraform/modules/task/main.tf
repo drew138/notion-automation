@@ -1,3 +1,10 @@
+resource "random_id" "id" {
+  keepers = {
+    first = "${timestamp()}"
+  }
+  byte_length = 8
+}
+
 resource "google_cloud_run_v2_service" "job" {
   name     = format("%s-job", var.service_name)
   location = var.location
@@ -9,7 +16,7 @@ resource "google_cloud_run_v2_service" "job" {
       min_instance_count = 0
     }
 
-    revision = format("%s-job-%s", var.service_name, timestamp())
+    revision = format("%s-job-%s", var.service_name, random_id.id.hex)
 
     containers {
       image = var.docker_image
