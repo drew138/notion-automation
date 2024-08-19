@@ -37,7 +37,15 @@ class BurndownChart:
     def update_fig_layout(self, title: str) -> None:
         self.fig.update_layout(
             paper_bgcolor="rgba(0,0,0,0)",
-            title=title,
+            title=dict(
+                text=title,
+                font=dict(
+                    color="white",
+                    size=20,
+                    weight="bold",
+                ),
+            ),
+            # title=title,
             xaxis_title="Date",
             yaxis_title="Story Points",
             yaxis=dict(dtick=1),
@@ -47,6 +55,9 @@ class BurndownChart:
                 dtick="D1",
                 tickformat="%Y-%m-%d",
                 tickangle=-45,
+            ),
+            legend=dict(
+                orientation="h", yanchor="top", y=-0.5, xanchor="center", x=0.5
             ),
         )
 
