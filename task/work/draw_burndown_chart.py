@@ -51,7 +51,8 @@ class DrawBurndownChartTask(Task):
             [total_points, 0],
             [sprint["start_date"], sprint["end_date"]],
         )
-        self.burndown.update_fig_layout(f'{sprint["name"]} Burndown Chart')
+        title = f'{sprint["name"]} Burndown Chart'
+        self.burndown.update_fig_layout(title)
 
         self.get_fig().show()
 
