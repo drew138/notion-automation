@@ -6,6 +6,6 @@ provider "google" {
 terraform {
   backend "gcs" {
     bucket = "notion-automations-terraform-backend"
-    prefix = "terraform.tfstate"
+    prefix = ""
   }
 }
