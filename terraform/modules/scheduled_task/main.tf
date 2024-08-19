@@ -9,6 +9,8 @@ resource "google_cloud_run_v2_service" "job" {
       min_instance_count = 0
     }
 
+    revision = format("%s-job-%s", var.service_name, timestamp())
+
     containers {
       image = var.docker_image
 
