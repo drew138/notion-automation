@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     environment:
-      - ROUTE=update_reviewever_issues_database
+      - ROUTE=update_reviewer_issues_database
     volumes:
       - .:/app
     command: ["python3", "main/server/main.py"]

@@ -3,7 +3,7 @@ from api.handler.work import (
     draw_burndown_chart,
     draw_completion_chart,
     update_assigned_issues_database,
-    update_reviewever_issues_database,
+    update_reviewer_issues_database,
 )
 from api.handler.finances import (
     draw_expenses_distribution_chart,
@@ -38,6 +38,6 @@ handler_config: Dict[str, Tuple[str, Callable]] = {
     ),
     "update_reviewer_issues_database": (
         "POST",
-        update_reviewever_issues_database.index,
+        update_reviewer_issues_database.index,
     ),
 }
