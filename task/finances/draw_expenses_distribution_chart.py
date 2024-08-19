@@ -4,6 +4,7 @@ from notion.database.finances.transactions import Transactions
 import plotly.graph_objects as go
 from collections import defaultdict
 from datetime import datetime
+import pytz
 
 
 class DrawExpensesDistributionChartTask(Task):
@@ -15,8 +16,18 @@ class DrawExpensesDistributionChartTask(Task):
 
         counts = defaultdict(int)
 
-        # TODO: read only current month transactions
-        transactions = self.transaction_db.read()
+        now = datetime.now()
+        month_start_date = datetime(
+            now.year,
+            now.month,
+            1,
+            0,
+            0,
+            0,
+            0,
+            pytz.UTC,
+        )
+        transactions = self.transaction_db.read(month_start_date)
 
         for transaction in transactions:
             if not transaction["amount"]:

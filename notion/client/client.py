@@ -17,15 +17,27 @@ class Client:
             "Notion-Version": self.version,
         }
 
-    def query_from_database(self, database_id: str) -> Any:
+    def query_from_database(self, database_id: str, created_after: str = "") -> Any:
         headers = self._create_headers()
         url = f"{self.base_url}/v1/databases/{database_id}/query"
+
+        kwargs: Dict = {
+            "headers": headers,
+        }
+
+        if created_after:
+            kwargs["json"] = {
+                "filter": {
+                    "timestamp": "created_time",
+                    "created_time": {"after": created_after},
+                },
+            }
 
         async def fetch():
             async with aiohttp.ClientSession() as session:
                 async with session.post(
                     url,
-                    headers=headers,
+                    **kwargs,
                 ) as response:
                     return await response.json()
 

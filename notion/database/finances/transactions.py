@@ -1,5 +1,6 @@
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from notion.client.client import Client
+from datetime import datetime
 import os
 
 
@@ -8,9 +9,20 @@ class Transactions:
         self.client = Client()
         self.database_id = os.getenv("NOTION_TRANSACTIONS_DATABASE_ID", "")
 
-    def read(self) -> List[Dict[str, Any]]:
+    def read(
+        self,
+        created_after: Optional[datetime] = None,
+    ) -> List[Dict[str, Any]]:
+
+        created_after_representation = (
+            (created_after.strftime("%Y-%m-%dT%H:%M:%S.") + "000Z")
+            if created_after
+            else ""
+        )
+
         response: Dict[str, Any] = self.client.query_from_database(
             self.database_id,
+            created_after_representation,
         )
 
         return [
