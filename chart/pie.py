@@ -31,9 +31,16 @@ class PieChart:
     def update_fig_layout(self, title: str) -> None:
 
         self.fig.update_layout(
-            title_text=title,
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
+            title=dict(
+                text=title,
+                font=dict(
+                    color="white",
+                    size=20,
+                    weight="bold",
+                ),
+            ),
         )
 
     def get_fig(self) -> go.Figure:
