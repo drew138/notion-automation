@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     environment:
-      - ROUTE=draw_expenses_distribution_chart
+      - ROUTE=draw_burndown_chart
       - DEBUG=True
     volumes:
       - .:/app

@@ -28,7 +28,7 @@ class DrawBurndownChartTask(Task):
             completion_date = issue["completion_date"]
             if completion_date:
                 completion_day = (completion_date - sprint["start_date"]).days
-                point_decrease[completion_day] -= issue["story_points"]
+                point_decrease[max(completion_day, 0)] -= issue["story_points"]
 
         day_points = []
 
