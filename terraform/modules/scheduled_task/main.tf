@@ -54,7 +54,7 @@ resource "google_cloud_scheduler_job" "trigger" {
   name             = format("%s-trigger", var.service_name)
   region           = var.location
   description      = "Invoke a Cloud Run container on an hourly basis."
-  schedule         = "0 * * * *"
+  schedule         = var.recurrence
   time_zone        = var.timezone
   attempt_deadline = "300s"
 

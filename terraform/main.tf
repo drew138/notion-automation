@@ -11,6 +11,7 @@ module "invoker_service_account" {
 module "append_transactions_database" {
   source                = "./modules/scheduled_task"
   service_name          = "append-transactions-database"
+  recurrence            = "0 8-16 * * *"
   docker_image          = var.docker_image
   location              = var.location
   service_account_email = module.invoker_service_account.service_account_email

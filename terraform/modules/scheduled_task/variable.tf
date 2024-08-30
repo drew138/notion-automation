@@ -33,3 +33,9 @@ variable "timezone" {
   default     = "America/Bogota"
   description = "Timezone for cloud scheduler jobs"
 }
+
+variable "recurrence" {
+  type        = string
+  default     = "0 * * * *"
+  description = "Recurrence for cloud scheduler jobs"
+}
