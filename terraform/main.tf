@@ -219,6 +219,10 @@ module "draw_expenses_distribution_chart" {
       name  = "NOTION_TRANSACTIONS_DATABASE_ID"
       value = var.notion_transactions_database_id
     },
+    {
+      name  = "PAY_DAY"
+      value = "24"
+    },
   ]
 }
 
@@ -239,6 +243,10 @@ module "draw_transactions_distributions_chart" {
     {
       name  = "NOTION_TRANSACTIONS_DATABASE_ID"
       value = var.notion_transactions_database_id
+    },
+    {
+      name  = "PAY_DAY"
+      value = "24"
     },
   ]
 }

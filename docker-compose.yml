@@ -9,7 +9,7 @@ services:
     env_file:
       - .env
     environment:
-      - ROUTE=draw_burndown_chart
+      - ROUTE=append_transactions_database
       - DEBUG=True
     volumes:
       - .:/app
