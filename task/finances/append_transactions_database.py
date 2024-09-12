@@ -27,9 +27,7 @@ class AppendTransactionsDatabase(Task):
         )
 
         transactions = self.transaction_db.read(today)
-        todays_subscription = set(
-            (transaction["name"], transaction["amount"]) for transaction in transactions
-        )
+        todays_subscription = set(transaction["name"] for transaction in transactions)
 
         for subscription in subscriptions:
             renewal_date = datetime.strptime(
@@ -38,7 +36,7 @@ class AppendTransactionsDatabase(Task):
             )
             if renewal_date <= current_date:
 
-                key = (subscription["name"], subscription["amount"])
+                key = subscription["name"]
                 if key in todays_subscription:
                     continue
 
