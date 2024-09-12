@@ -151,4 +151,6 @@ class Database:
             return "TO VERIFY"
         elif status == "Finalizada":
             return "DONE"
+        elif status == "Cancelado":
+            return "CANCELLED"
         return "TO DO"
