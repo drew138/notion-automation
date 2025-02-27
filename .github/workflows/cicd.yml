@@ -92,4 +92,4 @@ jobs:
         run: terraform plan -input=false
 
       - name: Terraform Apply
-        run: terraform destroy -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
